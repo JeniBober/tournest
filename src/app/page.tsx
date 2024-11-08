@@ -1,16 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { usePropertyStore } from '@/store/propertyStore';
 import PropertyForm from '@/components/PropertyForm';
 import PropertyList from '@/components/PropertyList';
 import PropertyMap from '@/components/PropertyMap';
 import TourInfo from '@/components/TourInfo';
 import ExportPDF from '@/components/ExportPDF';
-import ApiKeyInput from '@/components/ApiKeyInput';
+import { config } from '@/lib/config';
 
 export default function Home() {
-  const [googleMapsApiKey, setGoogleMapsApiKey] = useState('');
   const { properties, tourDate, agentName, clientName } = usePropertyStore((state) => state.schedule);
   const clearProperties = usePropertyStore((state) => state.clear);
 
@@ -36,7 +34,6 @@ export default function Home() {
 
       <main className="container mx-auto p-4">
         <div className="mb-6">
-          <ApiKeyInput apiKey={googleMapsApiKey} setApiKey={setGoogleMapsApiKey} />
           <TourInfo />
         </div>
 
@@ -56,7 +53,7 @@ export default function Home() {
               </div>
 
               <div className="flex-grow">
-                <PropertyMap properties={properties} apiKey={googleMapsApiKey} />
+                <PropertyMap properties={properties} apiKey={config.googleMapsApiKey} />
               </div>
             </div>
           </div>

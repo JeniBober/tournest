@@ -16,6 +16,7 @@ TourNest is a web application that helps real estate agents create and manage pr
 
 - Node.js 18.0.0 or later
 - npm or yarn
+- Google Maps API key (with Maps JavaScript API enabled)
 
 ### Installation
 
@@ -32,12 +33,17 @@ TourNest is a web application that helps real estate agents create and manage pr
    yarn install
    ```
 
-3. Create a `.env.local` file in the root directory and add your Google Maps API key:
+3. Create a `.env.local` file in the root directory by copying the example file:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+   Then add your Google Maps API key to the `.env.local` file:
    ```
    NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
    ```
 
-   > **Note:** You can obtain a Google Maps API key from the [Google Cloud Console](https://console.cloud.google.com/)
+   > **Note:** You can obtain a Google Maps API key from the [Google Cloud Console](https://console.cloud.google.com/). Make sure to enable the "Maps JavaScript API" for your project.
 
 4. Start the development server:
    ```bash
@@ -47,6 +53,20 @@ TourNest is a web application that helps real estate agents create and manage pr
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## Deployment on Vercel
+
+This application is optimized for deployment on Vercel.
+
+1. Push your code to a GitHub repository
+
+2. Import your repository on [Vercel](https://vercel.com)
+
+3. Configure the environment variable in the Vercel project settings:
+   - Go to your project on the Vercel dashboard
+   - Navigate to Settings > Environment Variables
+   - Add the variable `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` with your Google Maps API key
+   - Deploy or redeploy your application
 
 ## Technologies Used
 
