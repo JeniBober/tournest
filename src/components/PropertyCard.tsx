@@ -41,7 +41,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-500">No Image</span>
+            <span className="text-gray-700">No Image</span>
           </div>
         )}
         <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 m-2 rounded-md font-medium">
@@ -51,11 +51,11 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
       <div className="p-4">
         <div className="flex justify-between items-start">
-          <h3 className="text-lg font-semibold truncate">{address}</h3>
-          <span className="text-lg font-bold text-blue-600">{formatCurrency(price)}</span>
+          <h3 className="text-lg font-semibold text-gray-900 truncate">{address}</h3>
+          <span className="text-lg font-bold text-blue-700">{formatCurrency(price)}</span>
         </div>
 
-        <div className="flex space-x-4 mt-2 text-sm text-gray-600">
+        <div className="flex space-x-4 mt-2 text-sm text-gray-700">
           <span>{bedrooms} bed</span>
           <span>{bathrooms} bath</span>
           <span>{squareFootage.toLocaleString()} sqft</span>

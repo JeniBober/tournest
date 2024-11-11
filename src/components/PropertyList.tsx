@@ -15,7 +15,7 @@ export default function PropertyList({ properties }: PropertyListProps) {
   if (properties.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
-        <p className="text-gray-600">No properties added yet. Add your first property using the form above.</p>
+        <p className="text-gray-700">No properties added yet. Add your first property using the form above.</p>
       </div>
     );
   }

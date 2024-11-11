@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Make placeholders darker for better readability */
+::placeholder {
+  color: #939aa4 !important; /* Gray-600 instead of default light gray */
+  opacity: 1;
+}
+
+input {
+  color: #111827; /* Gray-900 for strong contrast */
+}
+
+/* Make sure headings are dark enough */
+h1, h2, h3, h4, h5, h6 {
+  color: #111827; /* Gray-900 for strong contrast */
+}

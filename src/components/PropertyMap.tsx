@@ -41,7 +41,7 @@ export default function PropertyMap({ properties, apiKey }: PropertyMapProps) {
   if (!apiKey) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
-        <p className="text-gray-600">Google Maps API key is required</p>
+        <p className="text-gray-700">Google Maps API key is required</p>
       </div>
     );
   }
@@ -49,7 +49,7 @@ export default function PropertyMap({ properties, apiKey }: PropertyMapProps) {
   if (properties.length === 0) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
-        <p className="text-gray-600">Add properties to see them on the map</p>
+        <p className="text-gray-700">Add properties to see them on the map</p>
       </div>
     );
   }

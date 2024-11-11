@@ -25,7 +25,7 @@ export default function TourInfo() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label htmlFor="tourDate" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="tourDate" className="block text-sm font-medium text-gray-900 mb-1">
             Tour Date
           </label>
           <input
@@ -38,7 +38,7 @@ export default function TourInfo() {
         </div>
 
         <div>
-          <label htmlFor="agentName" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="agentName" className="block text-sm font-medium text-gray-900 mb-1">
             Agent Name
           </label>
           <input
@@ -52,7 +52,7 @@ export default function TourInfo() {
         </div>
 
         <div>
-          <label htmlFor="clientName" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="clientName" className="block text-sm font-medium text-gray-900 mb-1">
             Client Name
           </label>
           <input

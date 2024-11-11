@@ -65,7 +65,7 @@ export default function PropertyForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="address" className="block text-sm font-medium text-gray-900 mb-1">
             Address
           </label>
           <input
@@ -81,7 +81,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="viewingTime" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="viewingTime" className="block text-sm font-medium text-gray-900 mb-1">
             Viewing Time
           </label>
           <input
@@ -96,7 +96,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="price" className="block text-sm font-medium text-gray-900 mb-1">
             Price ($)
           </label>
           <input
@@ -113,7 +113,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-900 mb-1">
             Bedrooms
           </label>
           <input
@@ -129,7 +129,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-900 mb-1">
             Bathrooms
           </label>
           <input
@@ -146,7 +146,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="squareFootage" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="squareFootage" className="block text-sm font-medium text-gray-900 mb-1">
             Square Footage
           </label>
           <input
@@ -162,7 +162,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-900 mb-1">
             Image URL
           </label>
           <input
@@ -178,7 +178,7 @@ export default function PropertyForm() {
         </div>
 
         <div className="md:col-span-2">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="description" className="block text-sm font-medium text-gray-900 mb-1">
             Description
           </label>
           <textarea
@@ -193,7 +193,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="latitude" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="latitude" className="block text-sm font-medium text-gray-900 mb-1">
             Latitude
           </label>
           <input
@@ -209,7 +209,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="longitude" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="longitude" className="block text-sm font-medium text-gray-900 mb-1">
             Longitude
           </label>
           <input
