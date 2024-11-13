@@ -4,12 +4,15 @@ import { Property, TourSchedule } from '@/types';
 
 interface PropertyState {
   schedule: TourSchedule;
+  sharedTours: Record<string, TourSchedule>; // Store tours by ID for sharing
   addProperty: (property: Property) => void;
   removeProperty: (id: string) => void;
   updateProperty: (id: string, property: Partial<Property>) => void;
   setTourDate: (date: string) => void;
   setAgentName: (name: string) => void;
   setClientName: (name: string) => void;
+  shareTour: (id: string) => void; // Save the current tour with an ID
+  getTourById: (id: string) => TourSchedule | null; // Get a tour by ID
   clear: () => void;
 }
 
@@ -22,8 +25,9 @@ const initialSchedule: TourSchedule = {
 
 export const usePropertyStore = create<PropertyState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       schedule: initialSchedule,
+      sharedTours: {},
 
       addProperty: (property: Property) =>
         set((state) => ({
@@ -74,6 +78,19 @@ export const usePropertyStore = create<PropertyState>()(
             clientName: name,
           },
         })),
+
+      shareTour: (id: string) =>
+        set((state) => ({
+          sharedTours: {
+            ...state.sharedTours,
+            [id]: { ...state.schedule } // Save current schedule with this ID
+          }
+        })),
+
+      getTourById: (id: string) => {
+        const { sharedTours } = get();
+        return sharedTours[id] || null;
+      },
 
       clear: () => set({ schedule: initialSchedule }),
     }),

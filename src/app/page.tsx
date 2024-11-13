@@ -6,6 +6,7 @@ import PropertyList from '@/components/PropertyList';
 import PropertyMap from '@/components/PropertyMap';
 import TourInfo from '@/components/TourInfo';
 import ExportPDF from '@/components/ExportPDF';
+import ShareLink from '@/components/ShareLink';
 import { config } from '@/lib/config';
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
       <main className="container mx-auto p-4">
         <div className="mb-6">
           <TourInfo />
+          {properties.length > 0 && <ShareLink />}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
