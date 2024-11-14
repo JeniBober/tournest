@@ -35,6 +35,10 @@ input {
   color: #111827; /* Gray-900 for strong contrast */
 }
 
+textarea {
+  color: #111827; /* Gray-900 for strong contrast */
+}
+
 /* Make sure headings are dark enough */
 h1, h2, h3, h4, h5, h6 {
   color: #111827; /* Gray-900 for strong contrast */
