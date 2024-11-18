@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { usePropertyStore } from '@/store/propertyStore';
 import { generateId } from '@/lib/utils';
 import { Property } from '@/types';
+import AddressAutocomplete from './AddressAutocomplete';
 
 export default function PropertyForm() {
   const addProperty = usePropertyStore((state) => state.addProperty);
@@ -21,6 +22,15 @@ export default function PropertyForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddressChange = (address: string, lat: number, lng: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      address,
+      latitude: lat ? String(lat) : '',
+      longitude: lng ? String(lng) : ''
+    }));
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -64,20 +74,23 @@ export default function PropertyForm() {
       <h2 className="text-xl font-bold mb-4">Add Property</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
+        <div className="md:col-span-2">
           <label htmlFor="address" className="block text-sm font-medium text-gray-900 mb-1">
             Address
           </label>
-          <input
-            type="text"
-            id="address"
-            name="address"
+          <AddressAutocomplete
             value={formData.address}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            placeholder="123 Main St, City, State, ZIP"
+            onChange={handleAddressChange}
           />
+          {(formData.latitude && formData.longitude) ? (
+            <p className="mt-1 text-xs text-gray-600">
+              Coordinates: {Number(formData.latitude).toFixed(6)}, {Number(formData.longitude).toFixed(6)}
+            </p>
+          ) : (
+            <p className="mt-1 text-xs text-gray-600">
+              Type an address and select from the dropdown to get coordinates
+            </p>
+          )}
         </div>
 
         <div>
@@ -191,44 +204,13 @@ export default function PropertyForm() {
             placeholder="Brief description of the property..."
           />
         </div>
-
-        <div>
-          <label htmlFor="latitude" className="block text-sm font-medium text-gray-900 mb-1">
-            Latitude
-          </label>
-          <input
-            type="text"
-            id="latitude"
-            name="latitude"
-            value={formData.latitude}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            placeholder="37.7749"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="longitude" className="block text-sm font-medium text-gray-900 mb-1">
-            Longitude
-          </label>
-          <input
-            type="text"
-            id="longitude"
-            name="longitude"
-            value={formData.longitude}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            placeholder="-122.4194"
-          />
-        </div>
       </div>
 
       <div className="mt-6">
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+          disabled={!formData.latitude || !formData.longitude}
         >
           Add Property
         </button>
