@@ -1,8 +1,14 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api';
 import { Property } from '@/types';
 import { formatCurrency, formatTime } from '@/lib/utils';
 import { loadGoogleMapsApi, isGoogleMapsLoaded } from '@/lib/googleMapsLoader';
+import { IoBed } from 'react-icons/io5';
+import { FaBath } from 'react-icons/fa';
+import { TbSquare } from 'react-icons/tb';
+import { BiTimeFive } from 'react-icons/bi';
 
 interface PropertyMapProps {
   properties: Property[];
@@ -86,59 +92,73 @@ export default function PropertyMap({ properties, apiKey }: PropertyMapProps) {
   }
 
   return (
-    <GoogleMap
-      mapContainerStyle={mapContainerStyle}
-      center={mapCenter}
-      zoom={12}
-      options={{
-        fullscreenControl: false,
-        streetViewControl: false,
-      }}
-      onLoad={handleMapLoad}
-    >
-      {properties.map((property) => (
-        <Marker
-          key={property.id}
-          position={property.location}
-          onClick={() => handleMarkerClick(property)}
-          label={{
-            text: formatTime(property.viewingTime),
-            className: 'bg-blue-600 text-white px-2 py-1 rounded-md font-medium text-xs'
-          }}
-        />
-      ))}
+    <div className="w-full h-full">
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        center={mapCenter}
+        zoom={12}
+        options={{
+          fullscreenControl: false,
+          streetViewControl: false,
+        }}
+        onLoad={handleMapLoad}
+      >
+        {properties.map((property) => (
+          <MarkerF
+            key={property.id}
+            position={property.location}
+            onClick={() => handleMarkerClick(property)}
+            label={{
+              text: formatTime(property.viewingTime),
+              className: 'bg-blue-600 text-white px-2 py-1 rounded-md font-medium text-xs'
+            }}
+          />
+        ))}
 
-      {selectedProperty && (
-        <InfoWindow
-          position={selectedProperty.location}
-          onCloseClick={handleInfoWindowClose}
-        >
-          <div className="p-2 max-w-xs">
-            {selectedProperty.imageUrl && (
-              <img
-                src={selectedProperty.imageUrl}
-                alt={selectedProperty.address}
-                className="w-full h-32 object-cover rounded-md mb-2"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=No+Image';
-                }}
-              />
-            )}
-            <div>
-              <h3 className="font-semibold text-sm">{selectedProperty.address}</h3>
-              <p className="text-blue-600 font-medium text-sm">
-                {formatCurrency(selectedProperty.price)}
-              </p>
-              <div className="text-xs text-gray-600 mt-1">
-                {selectedProperty.bedrooms} bed · {selectedProperty.bathrooms} bath · {selectedProperty.squareFootage.toLocaleString()} sqft
+        {selectedProperty && (
+          <InfoWindowF
+            position={{ lat: selectedProperty.location.lat, lng: selectedProperty.location.lng }}
+            onCloseClick={handleInfoWindowClose}
+          >
+            <div className="p-2 max-w-xs">
+              {selectedProperty.imageUrl && (
+                <img
+                  src={selectedProperty.imageUrl}
+                  alt={selectedProperty.address}
+                  className="w-full h-32 object-cover rounded-md mb-2"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=No+Image';
+                  }}
+                />
+              )}
+              <h3 className="font-medium mb-1">{selectedProperty.address}</h3>
+              <p className="text-blue-700 font-medium mb-2">{formatCurrency(selectedProperty.price)}</p>
+
+              <div className="flex justify-between text-sm mb-2">
+                <div className="flex items-center">
+                  <IoBed className="text-gray-500 mr-1" />
+                  <span>{selectedProperty.bedrooms} bed</span>
+                </div>
+
+                <div className="flex items-center">
+                  <FaBath className="text-gray-500 mr-1" />
+                  <span>{selectedProperty.bathrooms} bath</span>
+                </div>
+
+                <div className="flex items-center">
+                  <TbSquare className="text-gray-500 mr-1" />
+                  <span>{selectedProperty.squareFootage.toLocaleString()} sqft</span>
+                </div>
               </div>
-              <div className="mt-1 text-xs font-semibold">
-                Viewing Time: {formatTime(selectedProperty.viewingTime)}
+
+              <div className="flex items-center bg-blue-100 p-1 rounded text-sm text-blue-800">
+                <BiTimeFive className="mr-1" />
+                <span>Viewing at {formatTime(selectedProperty.viewingTime)}</span>
               </div>
             </div>
-          </div>
-        </InfoWindow>
-      )}
-    </GoogleMap>
+          </InfoWindowF>
+        )}
+      </GoogleMap>
+    </div>
   );
 }

@@ -5,8 +5,13 @@ import { useParams } from 'next/navigation';
 import { Property, TourSchedule } from '@/types';
 import PropertyMap from '@/components/PropertyMap';
 import { config } from '@/lib/config';
-import { formatCurrency, sortPropertiesByTime } from '@/lib/utils';
+import { formatCurrency, sortPropertiesByTime, formatTime } from '@/lib/utils';
 import { usePropertyStore } from '@/store/propertyStore';
+import { IoBed } from 'react-icons/io5';
+import { FaBath } from 'react-icons/fa';
+import { TbSquare } from 'react-icons/tb';
+import { BiTimeFive } from 'react-icons/bi';
+import { FaHouseUser } from 'react-icons/fa';
 
 export default function ClientView() {
   const params = useParams();
@@ -64,7 +69,10 @@ export default function ClientView() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-blue-600 text-white p-4 shadow-md">
         <div className="container mx-auto">
-          <h1 className="text-2xl font-bold">TourNest</h1>
+          <h1 className="text-2xl text-white! font-bold flex items-center">
+            <FaHouseUser className="mr-2 text-2xl text-white!" />
+            TourNest
+          </h1>
         </div>
       </header>
 
@@ -72,13 +80,15 @@ export default function ClientView() {
         <div className="bg-white shadow-md rounded-lg p-6 mb-6">
           <h2 className="text-xl font-bold mb-3">Property Tour Schedule</h2>
           <div className="flex flex-col sm:flex-row sm:justify-between">
+            <div className="mt-2 sm:mt-0">
             <p className="text-gray-700 font-medium">{formattedDate}</p>
             {(schedule.agentName || schedule.clientName) && (
-              <div className="mt-2 sm:mt-0">
-                {schedule.agentName && <span className="mr-4 text-gray-700">Agent: {schedule.agentName}</span>}
-                {schedule.clientName && <span className="text-gray-700">Client: {schedule.clientName}</span>}
-              </div>
-            )}
+                <>
+                {schedule.agentName && <p className="mr-4 text-gray-700">Agent: {schedule.agentName}</p>}
+                {schedule.clientName && <p className="text-gray-700">Client: {schedule.clientName}</p>}
+                </>
+              )}
+            </div>
           </div>
         </div>
 
@@ -120,7 +130,6 @@ export default function ClientView() {
   );
 }
 
-// Simplified Property Card for client view (no remove button)
 function PropertyCard({ property }: { property: Property }) {
   const {
     address,
@@ -134,8 +143,8 @@ function PropertyCard({ property }: { property: Property }) {
   } = property;
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-      <div className="relative h-48 overflow-hidden">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="relative h-64 overflow-hidden">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -151,24 +160,38 @@ function PropertyCard({ property }: { property: Property }) {
           </div>
         )}
         <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 m-2 rounded-md font-medium">
-          {viewingTime.split(':')[0]}:{viewingTime.split(':')[1]}
+          <div className="flex items-center">
+            <BiTimeFive className="mr-1" />
+            <span>{formatTime(viewingTime)}</span>
+          </div>
         </div>
       </div>
 
       <div className="p-4">
-        <div className="flex justify-between items-start">
-          <h3 className="text-lg font-semibold text-gray-900 truncate">{address}</h3>
-          <span className="text-lg font-bold text-blue-700">{formatCurrency(price)}</span>
+        <div className="flex justify-between items-start mb-3">
+          <h3 className="text-xl font-semibold text-gray-900">{address}</h3>
+          <span className="text-xl font-bold text-blue-700">{formatCurrency(price)}</span>
         </div>
 
-        <div className="flex space-x-4 mt-2 text-sm text-gray-700">
-          <span>{bedrooms} bed</span>
-          <span>{bathrooms} bath</span>
-          <span>{squareFootage.toLocaleString()} sqft</span>
+        <div className="flex space-x-6 mb-3 text-sm text-gray-700">
+          <div className="flex items-center">
+            <IoBed className="text-gray-500 mr-1 text-lg" />
+            <span>{bedrooms} bed</span>
+          </div>
+
+          <div className="flex items-center">
+            <FaBath className="text-gray-500 mr-1" />
+            <span>{bathrooms} bath</span>
+          </div>
+
+          <div className="flex items-center">
+            <TbSquare className="text-gray-500 mr-1" />
+            <span>{squareFootage.toLocaleString()} sqft</span>
+          </div>
         </div>
 
         {description && (
-          <p className="mt-2 text-sm text-gray-700">{description}</p>
+          <p className="mt-2 text-base text-gray-700">{description}</p>
         )}
       </div>
     </div>

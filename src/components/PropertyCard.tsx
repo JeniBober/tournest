@@ -1,6 +1,9 @@
 import { Property } from '@/types';
 import { formatCurrency, formatTime } from '@/lib/utils';
 import { usePropertyStore } from '@/store/propertyStore';
+import { IoBed } from 'react-icons/io5';
+import { FaBath } from 'react-icons/fa';
+import { TbSquare } from 'react-icons/tb';
 
 interface PropertyCardProps {
   property: Property;
@@ -56,9 +59,20 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         </div>
 
         <div className="flex space-x-4 mt-2 text-sm text-gray-700">
-          <span>{bedrooms} bed</span>
-          <span>{bathrooms} bath</span>
-          <span>{squareFootage.toLocaleString()} sqft</span>
+          <div className="flex items-center">
+            <IoBed className="text-gray-500 mr-1 text-lg" />
+            <span>{bedrooms} bed</span>
+          </div>
+
+          <div className="flex items-center">
+            <FaBath className="text-gray-500 mr-1" />
+            <span>{bathrooms} bath</span>
+          </div>
+
+          <div className="flex items-center">
+            <TbSquare className="text-gray-500 mr-1" />
+            <span>{squareFootage.toLocaleString()} sqft</span>
+          </div>
         </div>
 
         {description && (

@@ -8,6 +8,7 @@ import TourInfo from '@/components/TourInfo';
 import ExportPDF from '@/components/ExportPDF';
 import ShareLink from '@/components/ShareLink';
 import { config } from '@/lib/config';
+import { FaHouseUser } from 'react-icons/fa';
 
 export default function Home() {
   const { properties, tourDate, agentName, clientName } = usePropertyStore((state) => state.schedule);
@@ -17,7 +18,10 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-blue-600 text-white p-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">TourNest</h1>
+          <h1 className="text-2xl font-bold text-white! flex items-center">
+            <FaHouseUser className="mr-2 text-2xl text-white!" />
+            TourNest
+          </h1>
           {properties.length > 0 && (
             <button
               onClick={() => {
