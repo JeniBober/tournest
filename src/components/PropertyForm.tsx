@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { usePropertyStore } from '@/store/propertyStore';
 import { generateId } from '@/lib/utils';
 import { Property } from '@/types';
@@ -18,10 +18,26 @@ export default function PropertyForm() {
     latitude: '',
     longitude: '',
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
+
+      // Create a preview URL
+      const fileUrl = URL.createObjectURL(file);
+      setPreviewUrl(fileUrl);
+
+      // Update the formData with the URL or leave it empty if you prefer to use the file itself
+      setFormData(prev => ({ ...prev, imageUrl: fileUrl }));
+    }
   };
 
   const handleAddressChange = (address: string, lat: number, lng: number) => {
@@ -67,7 +83,16 @@ export default function PropertyForm() {
       latitude: '',
       longitude: '',
     });
+    setImageFile(null);
+    setPreviewUrl('');
   };
+
+  // Helper component for required field labels
+  const RequiredLabel = ({ children }: { children: React.ReactNode }) => (
+    <div className="block text-sm font-medium text-gray-900 mb-1">
+      {children} <span className="text-red-500">*</span>
+    </div>
+  );
 
   return (
     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -75,12 +100,11 @@ export default function PropertyForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="md:col-span-2">
-          <label htmlFor="address" className="block text-sm font-medium text-gray-900 mb-1">
-            Address
-          </label>
+          <RequiredLabel>Address</RequiredLabel>
           <AddressAutocomplete
             value={formData.address}
             onChange={handleAddressChange}
+            required
           />
           {(formData.latitude && formData.longitude) ? (
             <p className="mt-1 text-xs text-gray-600">
@@ -94,9 +118,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="viewingTime" className="block text-sm font-medium text-gray-900 mb-1">
-            Viewing Time
-          </label>
+          <RequiredLabel>Viewing Time</RequiredLabel>
           <input
             type="time"
             id="viewingTime"
@@ -109,9 +131,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="price" className="block text-sm font-medium text-gray-900 mb-1">
-            Price ($)
-          </label>
+          <RequiredLabel>Price ($)</RequiredLabel>
           <input
             type="number"
             id="price"
@@ -126,9 +146,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-900 mb-1">
-            Bedrooms
-          </label>
+          <RequiredLabel>Bedrooms</RequiredLabel>
           <input
             type="number"
             id="bedrooms"
@@ -142,9 +160,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-900 mb-1">
-            Bathrooms
-          </label>
+          <RequiredLabel>Bathrooms</RequiredLabel>
           <input
             type="number"
             id="bathrooms"
@@ -159,9 +175,7 @@ export default function PropertyForm() {
         </div>
 
         <div>
-          <label htmlFor="squareFootage" className="block text-sm font-medium text-gray-900 mb-1">
-            Square Footage
-          </label>
+          <RequiredLabel>Square Footage</RequiredLabel>
           <input
             type="number"
             id="squareFootage"
@@ -174,20 +188,30 @@ export default function PropertyForm() {
           />
         </div>
 
-        <div>
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-900 mb-1">
-            Image URL
+        <div className="md:col-span-2">
+          <label htmlFor="image" className="block text-sm font-medium text-gray-900 mb-1">
+            Property Image
           </label>
-          <input
-            type="url"
-            id="imageUrl"
-            name="imageUrl"
-            value={formData.imageUrl}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            placeholder="https://example.com/image.jpg"
-          />
+          <div className="flex flex-col">
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+            {previewUrl && (
+              <div className="mt-2">
+                <p className="text-sm text-gray-600 mb-1">Preview:</p>
+                <img
+                  src={previewUrl}
+                  alt="Property preview"
+                  className="w-full max-h-40 object-cover rounded-md"
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="md:col-span-2">
@@ -215,6 +239,7 @@ export default function PropertyForm() {
           Add Property
         </button>
       </div>
+      <p className="mt-2 text-xs text-gray-500">Fields marked with <span className="text-red-500">*</span> are required</p>
     </form>
   );
 }

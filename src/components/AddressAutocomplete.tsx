@@ -5,12 +5,14 @@ interface AddressAutocompleteProps {
   value: string;
   onChange: (address: string, lat: number, lng: number) => void;
   placeholder?: string;
+  required?: boolean;
 }
 
 export default function AddressAutocomplete({
   value,
   onChange,
-  placeholder = "123 Main St, City, State, ZIP"
+  placeholder = "123 Main St, City, State, ZIP",
+  required = false
 }: AddressAutocompleteProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loaded, setLoaded] = useState(isGoogleMapsLoaded());
@@ -55,6 +57,7 @@ export default function AddressAutocomplete({
       onChange={(e) => onChange(e.target.value, 0, 0)}
       className="w-full px-3 py-2 border border-gray-300 rounded-md"
       placeholder={placeholder}
+      required={required}
     />
   );
 }
