@@ -12,12 +12,6 @@ interface ExportPDFProps {
 export default function ExportPDF({ properties, tourDate, agentName, clientName }: ExportPDFProps) {
   const { toPDF, targetRef } = usePDF({
     filename: `property-tour-${tourDate}.pdf`,
-    options: {
-      // Wait for images to load
-      waitForDOM: true,
-      // Improve rendering quality
-      quality: 1,
-    },
   });
 
   const sortedProperties = sortPropertiesByTime(properties);
