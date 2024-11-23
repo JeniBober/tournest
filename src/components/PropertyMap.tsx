@@ -135,18 +135,18 @@ export default function PropertyMap({ properties, apiKey }: PropertyMapProps) {
               <p className="text-blue-700 font-medium mb-2">{formatCurrency(selectedProperty.price)}</p>
 
               <div className="flex justify-between text-sm mb-2">
-                <div className="flex items-center">
-                  <IoBed className="text-gray-500 mr-1" />
+                <div className="flex items-center text-gray-900">
+                  <IoBed className="text-gray-900 mr-1" />
                   <span>{selectedProperty.bedrooms} bed</span>
                 </div>
 
-                <div className="flex items-center">
-                  <FaBath className="text-gray-500 mr-1" />
+                <div className="flex items-center text-gray-900">
+                  <FaBath className="text-gray-900 mr-1" />
                   <span>{selectedProperty.bathrooms} bath</span>
                 </div>
 
-                <div className="flex items-center">
-                  <TbSquare className="text-gray-500 mr-1" />
+                <div className="flex items-center text-gray-900">
+                  <TbSquare className="text-gray-900 mr-1" />
                   <span>{selectedProperty.squareFootage.toLocaleString()} sqft</span>
                 </div>
               </div>

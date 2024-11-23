@@ -5,7 +5,6 @@ import PropertyForm from '@/components/PropertyForm';
 import PropertyList from '@/components/PropertyList';
 import PropertyMap from '@/components/PropertyMap';
 import TourInfo from '@/components/TourInfo';
-import ExportPDF from '@/components/ExportPDF';
 import ShareLink from '@/components/ShareLink';
 import { config } from '@/lib/config';
 import { FaHouseUser } from 'react-icons/fa';
@@ -63,15 +62,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-8">
-          <ExportPDF
-            properties={properties}
-            tourDate={tourDate}
-            agentName={agentName}
-            clientName={clientName}
-          />
         </div>
       </main>
 

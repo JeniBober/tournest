@@ -22,14 +22,12 @@ export default function ExportPDF({ properties, tourDate, agentName, clientName 
 
   return (
     <>
-      <div className="mb-4">
-        <button
-          onClick={() => toPDF()}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
-        >
-          Export to PDF
-        </button>
-      </div>
+      <button
+        onClick={() => toPDF()}
+        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+      >
+        Export to PDF
+      </button>
 
       {/* Hidden with CSS position instead of display:none so it's still rendered */}
       <div style={{ position: 'absolute', left: '-9999px', top: 0, width: '800px' }}>
